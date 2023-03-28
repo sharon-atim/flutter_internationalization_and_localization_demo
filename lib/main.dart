@@ -15,9 +15,12 @@ class MyApp extends StatelessWidget {
       // LocalizationsDelegates defines a list of delegates that Flutter will
       // use to look up localised strings and other resources for the app.
       localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
+        GlobalMaterialLocalizations
+            .delegate, // Provides localized strings and other values for the Material Components library.
+        GlobalWidgetsLocalizations
+            .delegate, // Defines the default text direction, either left-to-right or right-to-left, for the widgets library.
+        GlobalCupertinoLocalizations
+            .delegate, // Provides localized strings and other values for the Cupertino Components library.
       ],
       // SupportedLocales is used to specify the languages and regions that are
       // supported by the app for localisation.
@@ -30,7 +33,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'flutter Internationalisation Dem'),
+      home: const MyHomePage(title: 'flutter Internationalisation Demo'),
     );
   }
 }
