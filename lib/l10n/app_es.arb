@@ -1,3 +1,16 @@
 {
-    "helloWorld": "¡Hola Mundo!"
+  "helloWorld": "¡Hola Mundo!",
+  "@helloWorld": {
+    "description": "Un mensaje de saludo simple"
+  },
+  "hello": "Hola {userName}",
+  "@hello": {
+    "description": "Un mensaje con un solo parámetro",
+    "placeholders": {
+      "userName": {
+        "type": "String",
+        "example": "Sharon"
+      }
+    }
+  }
 }

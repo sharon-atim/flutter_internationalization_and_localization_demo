@@ -1,3 +1,17 @@
 {
-    "helloWorld": "Bonjour Monde!"
+  "@locale": "fr",
+  "helloWorld": "Bonjour le monde !",
+  "@helloWorld": {
+    "description": "Un message de salutation simple"
+  },
+  "hello": "Bonjour {userName}",
+  "@hello": {
+    "description": "Un message avec un seul paramètre",
+    "placeholders": {
+      "userName": {
+        "type": "String",
+        "example": "Sharon"
+      }
+    }
+  }
 }
