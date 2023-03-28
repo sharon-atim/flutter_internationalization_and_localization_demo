@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flag/flag.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,6 +23,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late String deviceLocale = 'EN';
+
   @override
   void initState() {
     super.initState();
@@ -68,9 +70,8 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(
-        title: 'flutter Internationalisation Demo',
-        deviceLocale: deviceLocale,
-      ),
+          title: 'flutter Internationalisation Demo',
+          deviceLocale: deviceLocale),
     );
   }
 }
@@ -89,6 +90,14 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    // Display the currency amount
+    const double amount = 123.00;
+    var currencyFormat = NumberFormat.currency(
+      locale: widget.deviceLocale,
+      decimalDigits: 2,
+    );
+    var formattedAmount = currencyFormat.format(amount);
+
     return Scaffold(
       appBar: AppBar(
         // The AppBar title, centered Text and Flag will now update its message according to the target
@@ -113,7 +122,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontSize: 30, fontWeight: FontWeight.bold),
                 ),
               ),
-              Center(child: Flag.fromString(widget.deviceLocale))
+              Center(child: Flag.fromString(widget.deviceLocale)),
+              Text(
+                formattedAmount,
+                style: const TextStyle(fontSize: 20),
+              ),
             ],
           ),
         ),
