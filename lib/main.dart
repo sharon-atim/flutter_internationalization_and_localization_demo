@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flag/flag.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,11 +21,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  late String deviceLocale = 'EN';
   @override
   void initState() {
     super.initState();
-    getDeviceLocale();
-    debugPrint(window.locale.languageCode);
+    deviceLocale = getDeviceLocale();
   }
 
   @override
@@ -32,7 +33,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       // TODO: How to pass in the localized string into the application title
       // onGenerateTitle: (context) => DemoLocalizations.of(context).title,
-
+      debugShowCheckedModeBanner: false,
       title: 'flutter Internationalisation Demo',
       // LocalizationsDelegates defines a list of delegates that Flutter will
       // use to look up localised strings and other resources for the app.
@@ -66,15 +67,20 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'flutter Internationalisation Demo'),
+      home: MyHomePage(
+        title: 'flutter Internationalisation Demo',
+        deviceLocale: deviceLocale,
+      ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage(
+      {super.key, required this.title, required this.deviceLocale});
 
   final String title;
+  final String deviceLocale;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -85,20 +91,31 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // The AppBar title will now update its message according to the target
+        // The AppBar title, centered Text and Flag will now update its message according to the target
         // platform. Switching the device's locale between English, Spanish and
         // French locales should cause this text to update.
         title: Text(AppLocalizations.of(context)!.helloWorld),
+        backgroundColor: widget.deviceLocale == 'en'
+            ? Colors.red
+            : widget.deviceLocale == 'fr'
+                ? Colors.blue.shade900
+                : Colors.red.shade900,
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              AppLocalizations.of(context)!.hello('Sharon'),
-              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Center(
+                child: Text(
+                  AppLocalizations.of(context)!.hello('Sharon'),
+                  style: const TextStyle(
+                      fontSize: 30, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Center(child: Flag.fromString(widget.deviceLocale))
+            ],
+          ),
         ),
       ),
     );
